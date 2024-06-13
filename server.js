@@ -1,0 +1,50 @@
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const dotenv = require("dotenv");
+const colors = require("colors");
+const connectDb = require("./config/connectDb");
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import ConsoleHelperBackend from "./ConsoleHelperBackend";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+//config dotenv file
+dotenv.config();
+
+//database call
+connectDb();
+
+//rest object
+const app = express();
+
+//middlewares
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "./client/build")));
+
+const BASE_URL = process.env.BASE_URL;
+
+//user routes
+app.use("/api/v1/users", require("./routes/userRoute"));
+
+//transaction routes
+app.use("/api/v1/transactions", require("./routes/transactionRoutes"));
+
+app.use("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+//port
+const PORT = process.env.PORT || 8080;
+
+//listen server
+app.listen(`{PORT}`, () => {
+    ConsoleHelperBackend(
+        `Server running on port ${process.env.DEV}`.bgGreen.white
+    );
+});
