@@ -4,10 +4,10 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const colors = require("colors");
 const connectDb = require("./config/connectDb");
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-import ConsoleHelperBackend from "./ConsoleHelperBackend";
+const path = require('C:/Users/krish/AppData/Local/Microsoft/TypeScript/5.4/node_modules/@types/node/path.d.ts')
+const fileURLToPath = require('C:/Users/krish/AppData/Local/Microsoft/TypeScript/5.4/node_modules/@types/node/path.d.ts')
+const dirname = require('C:/Users/krish/AppData/Local/Microsoft/TypeScript/5.4/node_modules/@types/node/path.d.ts')
+const ConsoleHelperBackend = require('./ConsoleHelperBackend.js')
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
